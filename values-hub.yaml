@@ -2,21 +2,21 @@ clusterGroup:
   name: hub
   isHubCluster: true
   namespaces:
-    - open-cluster-management
+#    - open-cluster-management
     - vault
     - golang-external-secrets
-    - config-demo
+#    - config-demo
     - hello-world
   subscriptions:
-    acm:
-      name: advanced-cluster-management
-      namespace: open-cluster-management
-      channel: release-2.10
+#    acm:
+#      name: advanced-cluster-management
+#      namespace: open-cluster-management
+#      channel: release-2.10
       #csv: advanced-cluster-management.v2.6.1
   projects:
     - hub
-    - config-demo
-    - hello-world
+#    - config-demo
+#    - hello-world
   # Explicitly mention the cluster-state based overrides we plan to use for this pattern.
   # We can use self-referential variables because the chart calls the tpl function with these variables defined
   sharedValueFiles:
@@ -38,16 +38,16 @@ clusterGroup:
   #   - '/overrides/values-{{ $.Values.global.hubClusterDomain }}.yaml'
   #   - '/overrides/values-{{ $.Values.global.localClusterDomain }}.yaml'
   applications:
-    acm:
-      name: acm
-      namespace: open-cluster-management
-      project: hub
-      path: common/acm
-      ignoreDifferences:
-        - group: internal.open-cluster-management.io
-          kind: ManagedClusterInfo
-          jsonPointers:
-            - /spec/loggingCA
+  #https://github.com/Bryasmith/vp-rhcl-deloitte-demo.git  acm:
+  #    name: acm
+  #    namespace: open-cluster-management
+  #    project: hub
+  #    path: common/acm
+  #    ignoreDifferences:
+  #      - group: internal.open-cluster-management.io
+  #        kind: ManagedClusterInfo
+  #        jsonPointers:
+  #          - /spec/loggingCA
     vault:
       name: vault
       namespace: vault
@@ -58,11 +58,11 @@ clusterGroup:
       namespace: golang-external-secrets
       project: hub
       path: common/golang-external-secrets
-    config-demo:
-      name: config-demo
-      namespace: config-demo
-      project: config-demo
-      path: charts/all/config-demo
+ #   config-demo:
+ #    name: config-demo
+ #     namespace: config-demo
+ #     project: config-demo
+ #     path: charts/all/config-demo
     hello-world:
       name: hello-world
       namespace: hello-world
@@ -82,15 +82,15 @@ clusterGroup:
         # per playbook timeout in seconds
         timeout: 234
         # verbosity: "-v"
-  managedClusterGroups:
-    exampleRegion:
-      name: group-one
-      acmlabels:
-        - name: clusterGroup
-          value: group-one
-      helmOverrides:
-        - name: clusterGroup.isHubCluster
-          value: false
+ # managedClusterGroups:
+ #   exampleRegion:
+ #     name: group-one
+ #     acmlabels:
+ #       - name: clusterGroup
+ #         value: group-one
+ #     helmOverrides:
+ #       - name: clusterGroup.isHubCluster
+ #         value: false
           # Before enabling cluster provisioning, ensure AWS and/or Azure
           #   credentials and OCP pull secrets are defined in Vault.
           #   See values-secret.yaml.template
